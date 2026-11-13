@@ -1,0 +1,81 @@
+{
+  "experiment": "B",
+  "corpus": "SAVEE",
+  "checkpoint": "facebook/wav2vec2-base",
+  "checkpoint_commit": "",
+  "backbone": "fully frozen (step 1)",
+  "input": "load_audio 16 kHz -> prepare_waveform -> Wav2Vec2FeatureExtractor (do_normalize) -> backbone",
+  "pooling": "mean over frames, per clip, no padding",
+  "head": {
+    "dropout": 0.3,
+    "lr": 0.001,
+    "weight_decay": 0.001,
+    "batch_size": 32,
+    "max_epochs": 300,
+    "patience": 30,
+    "seed": 42
+  },
+  "seed_rule": "fold seed = head.seed + fold index",
+  "variants": {
+    "w2v2_frozen_last": "transformer layer 12 (final)",
+    "w2v2_frozen_best_layer": "layer 1-12 chosen per fold on the validation speaker"
+  },
+  "folds": [
+    {
+      "fold": 0,
+      "test_speaker": "SAVEE:DC",
+      "val_speaker": "SAVEE:JE",
+      "seed": 42,
+      "n_train": 240,
+      "n_val": 120,
+      "n_test": 120
+    },
+    {
+      "fold": 1,
+      "test_speaker": "SAVEE:JE",
+      "val_speaker": "SAVEE:JK",
+      "seed": 43,
+      "n_train": 240,
+      "n_val": 120,
+      "n_test": 120
+    },
+    {
+      "fold": 2,
+      "test_speaker": "SAVEE:JK",
+      "val_speaker": "SAVEE:KL",
+      "seed": 44,
+      "n_train": 240,
+      "n_val": 120,
+      "n_test": 120
+    },
+    {
+      "fold": 3,
+      "test_speaker": "SAVEE:KL",
+      "val_speaker": "SAVEE:DC",
+      "seed": 45,
+      "n_train": 240,
+      "n_val": 120,
+      "n_test": 120
+    }
+  ],
+  "results": {
+    "w2v2_frozen_last": {
+      "macro_f1_pooled": 0.3767,
+      "ua_pooled": 0.3821,
+      "macro_f1_fold_mean": 0.3433,
+      "macro_f1_fold_std": 0.1326,
+      "ua_fold_mean": 0.3821,
+      "ua_fold_std": 0.1031
+    },
+    "w2v2_frozen_best_layer": {
+      "macro_f1_pooled": 0.657,
+      "ua_pooled": 0.6643,
+      "macro_f1_fold_mean": 0.6543,
+      "macro_f1_fold_std": 0.124,
+      "ua_fold_mean": 0.6643,
+      "ua_fold_std": 0.1192
+    }
+  },
+  "torch": "2.11.0+cpu",
+  "transformers": "5.22.2"
+}

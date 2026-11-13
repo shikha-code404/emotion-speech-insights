@@ -1,0 +1,5 @@
+fold,speaker,n,macro_f1,ua,layer,val_speaker,best_epoch,seed,val_macro_f1,model
+0,test on Emo-DB,454,0.1949,0.2269,12,SAVEE:DC,137,42,0.7040,w2v2_frozen_last
+1,test on SAVEE,420,0.1957,0.2597,12,Emo-DB:08,34,43,0.9109,w2v2_frozen_last
+0,test on Emo-DB,454,0.2834,0.2996,8,SAVEE:DC,21,42,0.8895,w2v2_frozen_best_layer
+1,test on SAVEE,420,0.1602,0.2153,9,Emo-DB:08,56,43,1.0000,w2v2_frozen_best_layer

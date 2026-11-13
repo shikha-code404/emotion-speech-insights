@@ -1,0 +1,134 @@
+{
+  "experiment": "B",
+  "corpus": "SAVEE",
+  "labels": [
+    "anger",
+    "disgust",
+    "fear",
+    "happiness",
+    "neutral",
+    "sadness",
+    "surprise"
+  ],
+  "created": "20261112-174527",
+  "command": "C:\\Users\\shikh\\OneDrive\\Desktop\\EDI_FINAL_PROJECT\\ml\\src\\compare_speech.py",
+  "device": "cpu",
+  "torch": "2.11.0+cpu",
+  "torchaudio": "2.11.0+cpu",
+  "sklearn": "1.9.1",
+  "preprocessing": "load_audio 16 kHz mono -> prepare_waveform(top_db=30.0)",
+  "log_mel": {
+    "n_mels": 80,
+    "n_fft": 400,
+    "hop": 160,
+    "f_min": 20.0,
+    "f_max": 8000.0,
+    "log": "ln(power + 1e-6)"
+  },
+  "cnn": {
+    "n_mels": 80,
+    "channels": [
+      16,
+      32,
+      64
+    ],
+    "dropout": 0.2,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 16,
+    "max_epochs": 60,
+    "patience": 10,
+    "aug_prob": 0.5,
+    "noise_snr_db": [
+      20.0,
+      35.0
+    ],
+    "gain_db": 3.0,
+    "max_shift_s": 0.1,
+    "seed": 42,
+    "extra": {}
+  },
+  "seed_rule": "fold seed = cnn.seed + fold index",
+  "splits": "leave-one-speaker-out (ml/src/splits.py); early-stopping speaker = validation_speaker(train speakers, fold index)",
+  "folds": [
+    {
+      "fold": 0,
+      "speaker": "SAVEE:DC",
+      "val_speaker": "SAVEE:JE",
+      "seed": 42,
+      "n_train": 240,
+      "n_val": 120,
+      "n_test": 120
+    },
+    {
+      "fold": 1,
+      "speaker": "SAVEE:JE",
+      "val_speaker": "SAVEE:JK",
+      "seed": 43,
+      "n_train": 240,
+      "n_val": 120,
+      "n_test": 120
+    },
+    {
+      "fold": 2,
+      "speaker": "SAVEE:JK",
+      "val_speaker": "SAVEE:KL",
+      "seed": 44,
+      "n_train": 240,
+      "n_val": 120,
+      "n_test": 120
+    },
+    {
+      "fold": 3,
+      "speaker": "SAVEE:KL",
+      "val_speaker": "SAVEE:DC",
+      "seed": 45,
+      "n_train": 240,
+      "n_val": 120,
+      "n_test": 120
+    }
+  ],
+  "results": {
+    "majority_baseline": {
+      "macro_f1_pooled": 0.0571,
+      "ua_pooled": 0.1429,
+      "macro_f1_fold_mean": 0.0571,
+      "macro_f1_fold_std": 0.0,
+      "ua_fold_mean": 0.1429,
+      "ua_fold_std": 0.0
+    },
+    "svm_rbf": {
+      "macro_f1_pooled": 0.3778,
+      "ua_pooled": 0.375,
+      "macro_f1_fold_mean": 0.3329,
+      "macro_f1_fold_std": 0.1956,
+      "ua_fold_mean": 0.375,
+      "ua_fold_std": 0.1635
+    },
+    "random_forest": {
+      "macro_f1_pooled": 0.3593,
+      "ua_pooled": 0.3536,
+      "macro_f1_fold_mean": 0.314,
+      "macro_f1_fold_std": 0.1844,
+      "ua_fold_mean": 0.3536,
+      "ua_fold_std": 0.1705
+    },
+    "cnn": {
+      "macro_f1_pooled": 0.3095,
+      "ua_pooled": 0.3274,
+      "macro_f1_fold_mean": 0.2748,
+      "macro_f1_fold_std": 0.1175,
+      "ua_fold_mean": 0.3274,
+      "ua_fold_std": 0.1215
+    }
+  },
+  "paired_vs_svm": {
+    "n_folds": 4,
+    "wins": 1,
+    "losses": 3,
+    "ties": 0,
+    "mean_diff": -0.05811701285528273,
+    "sd_diff": 0.11797650110062051,
+    "p": null
+  }
+}

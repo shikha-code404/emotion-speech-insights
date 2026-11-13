@@ -1,0 +1,22 @@
+# SYNTHETIC DATA: all 1,200 survey respondents are artificially generated; none are real people. Results reflect the data generator's rules, not real-world patterns, and are not real-world accuracy.
+fold,macro_f1,balanced_accuracy,model
+0,0.1000,0.2500,majority_baseline
+1,0.1000,0.2500,majority_baseline
+2,0.1000,0.2500,majority_baseline
+3,0.1000,0.2500,majority_baseline
+4,0.1000,0.2500,majority_baseline
+0,0.6030,0.6042,logistic_regression
+1,0.6022,0.6042,logistic_regression
+2,0.5605,0.5625,logistic_regression
+3,0.5903,0.5917,logistic_regression
+4,0.5475,0.5542,logistic_regression
+0,0.6207,0.6250,random_forest
+1,0.5821,0.5833,random_forest
+2,0.5452,0.5500,random_forest
+3,0.5872,0.5875,random_forest
+4,0.5236,0.5292,random_forest
+0,0.6309,0.6333,gradient_boosting
+1,0.5903,0.5917,gradient_boosting
+2,0.5552,0.5583,gradient_boosting
+3,0.5849,0.5875,gradient_boosting
+4,0.5420,0.5458,gradient_boosting

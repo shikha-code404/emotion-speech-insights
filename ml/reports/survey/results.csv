@@ -1,0 +1,6 @@
+# SYNTHETIC DATA: all 1,200 survey respondents are artificially generated; none are real people. Results reflect the data generator's rules, not real-world patterns, and are not real-world accuracy.
+model,macro_f1_mean,macro_f1_std,balanced_accuracy_mean,balanced_accuracy_std,recall_normal,recall_depression,recall_anxiety,recall_stress
+majority_baseline,0.1000,0.0000,0.2500,0.0000,0.0000,0.0000,1.0000,0.0000
+logistic_regression,0.5807,0.0253,0.5833,0.0236,0.6867,0.5433,0.4933,0.6100
+random_forest,0.5717,0.0380,0.5750,0.0369,0.6933,0.5300,0.4867,0.5900
+gradient_boosting,0.5806,0.0345,0.5833,0.0340,0.7100,0.5367,0.5000,0.5867

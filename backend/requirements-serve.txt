@@ -1,0 +1,12 @@
+# Runtime packages for the API only (no training, notebooks or tests).
+# PyTorch + transformers are added by deploy/install.sh only when the served
+# model's model_card.json says "pytorch-wav2vec2-head".
+fastapi==0.162.3
+uvicorn==0.54.0
+python-multipart==0.0.33
+numpy==2.5.4
+scipy==1.18.1
+librosa==1.0.0
+soundfile==0.14.0
+joblib==1.6.0
+scikit-learn==1.9.1

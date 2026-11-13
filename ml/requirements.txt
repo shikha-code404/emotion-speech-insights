@@ -1,0 +1,13 @@
+librosa
+soundfile
+numpy
+pandas
+openpyxl
+scikit-learn
+joblib
+torch==2.11.0
+torchaudio==2.11.0
+transformers==5.22.2
+matplotlib
+pytest
+

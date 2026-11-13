@@ -1,0 +1,85 @@
+{
+  "format": "pytorch-wav2vec2-head",
+  "version": "ser-w2v2-v2",
+  "created": "2026-11-12",
+  "model_family": "Wav2Vec 2.0 base (frozen, first 6 transformer layers) + linear head",
+  "labels": [
+    "anger",
+    "disgust",
+    "fear",
+    "happiness",
+    "neutral",
+    "sadness"
+  ],
+  "corpora": [
+    "Emo-DB (German, acted)",
+    "SAVEE (English, acted)"
+  ],
+  "sample_rate": 16000,
+  "files": {
+    "backbone": "backbone/",
+    "head": "head.pt",
+    "label_map": "label_map.json",
+    "preprocess_config": "preprocess_config.json"
+  },
+  "prediction": "vocal emotion expressed in one audio clip",
+  "intended_use": "Educational demo of speech emotion recognition. Shows the emotion a short clip's voice most resembles, with the model's uncertainty.",
+  "not_for": [
+    "any statement about a person's mental health or wellbeing",
+    "decisions about people",
+    "monitoring people over time"
+  ],
+  "metrics": {
+    "evaluation": "leave-one-speaker-out over 14 speakers (acted speech); layer chosen inside each fold",
+    "macro_f1": 0.7738,
+    "unweighted_average_recall": 0.7706,
+    "macro_f1_per_speaker_mean": 0.804,
+    "macro_f1_per_speaker_std": 0.1812,
+    "per_class_recall": {
+      "anger": 0.8717,
+      "disgust": 0.6981,
+      "fear": 0.6667,
+      "happiness": 0.687,
+      "neutral": 0.9296,
+      "sadness": 0.7705
+    },
+    "ece": 0.0626,
+    "cross_corpus_macro_f1": 0.245,
+    "layer_selection_score_optimistic": 0.8358,
+    "cpu_latency_ms_4s_clip": 648,
+    "cpu_latency_note": "median of 15 runs, 4 threads, measured side by side with the SVM (314 ms) and the full 12-layer backbone (919 ms) in one session; absolute times varied about 2x between sessions on this machine"
+  },
+  "training": {
+    "clips": 874,
+    "speakers": 14,
+    "layer": 6,
+    "head_epochs": 12,
+    "head": {
+      "dropout": 0.3,
+      "lr": 0.001,
+      "weight_decay": 0.001,
+      "batch_size": 32,
+      "max_epochs": 300,
+      "patience": 30,
+      "seed": 42
+    },
+    "backbone_frozen": true,
+    "fine_tuned": false
+  },
+  "size": {
+    "parameters": 51849094,
+    "bytes_on_disk": 207421105
+  },
+  "backbone_license": "Apache-2.0 (facebook/wav2vec2-base)",
+  "selection_report": "ml/reports/model_selection.md",
+  "limitations": [
+    "Trained only on acted speech (Emo-DB: 10 German actors; SAVEE: 4 male English actors). Natural, everyday speech is usually much less exaggerated.",
+    "Only 14 speakers in total, so results vary a lot from one speaker to another.",
+    "Recording conditions (studio microphones) differ from phones and laptops; background noise lowers accuracy.",
+    "It estimates the emotion expressed in the voice in one clip. It does not measure how a person feels overall, their mood over time, or their mental health.",
+    "Only six emotion categories are recognised; everything else is forced into one of them.",
+    "Evaluation scores come from held-out actors in the same two corpora, not from real-world use.",
+    "The backbone was pretrained on English read speech (LibriSpeech); it was not trained for emotion.",
+    "Trained on one corpus and tested on the other, every model scored poorly (best macro-F1 about 0.25), so expect much lower accuracy on everyday recordings than on the acted test speakers."
+  ]
+}

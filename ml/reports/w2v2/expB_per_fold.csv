@@ -1,0 +1,9 @@
+fold,speaker,n,macro_f1,ua,layer,val_speaker,best_epoch,seed,val_macro_f1,model
+0,SAVEE:DC,120,0.4309,0.4333,12,SAVEE:JE,82,42,0.4614,w2v2_frozen_last
+1,SAVEE:JE,120,0.4659,0.4810,12,SAVEE:JK,4,43,0.2934,w2v2_frozen_last
+2,SAVEE:JK,120,0.3011,0.3714,12,SAVEE:KL,53,44,0.3189,w2v2_frozen_last
+3,SAVEE:KL,120,0.1752,0.2429,12,SAVEE:DC,52,45,0.5179,w2v2_frozen_last
+0,SAVEE:DC,120,0.7018,0.7000,6,SAVEE:JE,8,42,0.8204,w2v2_frozen_best_layer
+1,SAVEE:JE,120,0.7903,0.8000,7,SAVEE:JK,133,43,0.7672,w2v2_frozen_best_layer
+2,SAVEE:JK,120,0.6276,0.6429,7,SAVEE:KL,57,44,0.6427,w2v2_frozen_best_layer
+3,SAVEE:KL,120,0.4973,0.5143,7,SAVEE:DC,27,45,0.8374,w2v2_frozen_best_layer

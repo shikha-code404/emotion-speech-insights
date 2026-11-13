@@ -1,0 +1,52 @@
+{
+  "format": "sklearn-joblib",
+  "version": "ser-baseline-v1",
+  "model_family": "SVM (RBF kernel) on pooled MFCC/spectral statistics",
+  "labels": [
+    "anger",
+    "disgust",
+    "fear",
+    "happiness",
+    "neutral",
+    "sadness"
+  ],
+  "corpora": [
+    "Emo-DB (German, acted)",
+    "SAVEE (English, acted)"
+  ],
+  "sample_rate": 16000,
+  "metrics": {
+    "evaluation": "leave-one-speaker-out over 14 speakers (acted speech)",
+    "macro_f1": 0.5957,
+    "unweighted_average_recall": 0.5876,
+    "macro_f1_per_speaker_mean": 0.6249,
+    "macro_f1_per_speaker_std": 0.1896,
+    "per_class_recall": {
+      "anger": 0.7487,
+      "disgust": 0.4811,
+      "fear": 0.4884,
+      "happiness": 0.5267,
+      "neutral": 0.7236,
+      "sadness": 0.5574
+    },
+    "per_corpus_macro_f1": {
+      "Emo-DB": 0.7198,
+      "SAVEE": 0.4496
+    }
+  },
+  "limitations": [
+    "Trained only on acted speech (Emo-DB: 10 German actors; SAVEE: 4 male English actors). Natural, everyday speech is usually much less exaggerated.",
+    "Only 14 speakers in total, so results vary a lot from one speaker to another.",
+    "Recording conditions (studio microphones) differ from phones and laptops; background noise lowers accuracy.",
+    "It estimates the emotion expressed in the voice in one clip. It does not measure how a person feels overall, their mood over time, or their mental health.",
+    "Only six emotion categories are recognised; everything else is forced into one of them.",
+    "Evaluation scores come from held-out actors in the same two corpora, not from real-world use."
+  ],
+  "files": {
+    "model": "model.joblib",
+    "metadata": "metadata.json"
+  },
+  "prediction": "vocal emotion expressed in one audio clip",
+  "features": "ml/src/features.py (396 pooled MFCC/spectral statistics)",
+  "preprocessing": "16 kHz mono; trim silence (top_db=30.0); peak-normalise; ml/src/features.py"
+}

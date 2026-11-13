@@ -1,0 +1,18 @@
+{
+  "sample_rate": 16000,
+  "channels": "mono",
+  "steps": [
+    "ml/src/preprocessing.load_audio (resample to 16 kHz, mono)",
+    "ml/src/preprocessing.prepare_waveform (trim silence, top_db=30.0; peak-normalise)",
+    "Wav2Vec2FeatureExtractor (per-utterance zero mean, unit variance)",
+    "wav2vec2-base backbone truncated after transformer layer 6",
+    "mean over frames",
+    "head: standardise (training statistics) -> linear -> softmax"
+  ],
+  "trim_top_db": 30.0,
+  "checkpoint": "facebook/wav2vec2-base",
+  "checkpoint_commit": "",
+  "layer": 6,
+  "pooling": "mean",
+  "temperature": 1.0
+}

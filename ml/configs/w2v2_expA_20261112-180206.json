@@ -1,0 +1,135 @@
+{
+  "experiment": "A",
+  "corpus": "Emo-DB",
+  "checkpoint": "facebook/wav2vec2-base",
+  "checkpoint_commit": "",
+  "backbone": "fully frozen (step 1)",
+  "input": "load_audio 16 kHz -> prepare_waveform -> Wav2Vec2FeatureExtractor (do_normalize) -> backbone",
+  "pooling": "mean over frames, per clip, no padding",
+  "head": {
+    "dropout": 0.3,
+    "lr": 0.001,
+    "weight_decay": 0.001,
+    "batch_size": 32,
+    "max_epochs": 300,
+    "patience": 30,
+    "seed": 42
+  },
+  "seed_rule": "fold seed = head.seed + fold index",
+  "variants": {
+    "w2v2_frozen_last": "transformer layer 12 (final)",
+    "w2v2_frozen_best_layer": "layer 1-12 chosen per fold on the validation speaker"
+  },
+  "folds": [
+    {
+      "fold": 0,
+      "test_speaker": "Emo-DB:03",
+      "val_speaker": "Emo-DB:08",
+      "seed": 42,
+      "n_train": 428,
+      "n_val": 58,
+      "n_test": 49
+    },
+    {
+      "fold": 1,
+      "test_speaker": "Emo-DB:08",
+      "val_speaker": "Emo-DB:09",
+      "seed": 43,
+      "n_train": 434,
+      "n_val": 43,
+      "n_test": 58
+    },
+    {
+      "fold": 2,
+      "test_speaker": "Emo-DB:09",
+      "val_speaker": "Emo-DB:10",
+      "seed": 44,
+      "n_train": 454,
+      "n_val": 38,
+      "n_test": 43
+    },
+    {
+      "fold": 3,
+      "test_speaker": "Emo-DB:10",
+      "val_speaker": "Emo-DB:11",
+      "seed": 45,
+      "n_train": 442,
+      "n_val": 55,
+      "n_test": 38
+    },
+    {
+      "fold": 4,
+      "test_speaker": "Emo-DB:11",
+      "val_speaker": "Emo-DB:12",
+      "seed": 46,
+      "n_train": 445,
+      "n_val": 35,
+      "n_test": 55
+    },
+    {
+      "fold": 5,
+      "test_speaker": "Emo-DB:12",
+      "val_speaker": "Emo-DB:13",
+      "seed": 47,
+      "n_train": 439,
+      "n_val": 61,
+      "n_test": 35
+    },
+    {
+      "fold": 6,
+      "test_speaker": "Emo-DB:13",
+      "val_speaker": "Emo-DB:14",
+      "seed": 48,
+      "n_train": 405,
+      "n_val": 69,
+      "n_test": 61
+    },
+    {
+      "fold": 7,
+      "test_speaker": "Emo-DB:14",
+      "val_speaker": "Emo-DB:15",
+      "seed": 49,
+      "n_train": 410,
+      "n_val": 56,
+      "n_test": 69
+    },
+    {
+      "fold": 8,
+      "test_speaker": "Emo-DB:15",
+      "val_speaker": "Emo-DB:16",
+      "seed": 50,
+      "n_train": 408,
+      "n_val": 71,
+      "n_test": 56
+    },
+    {
+      "fold": 9,
+      "test_speaker": "Emo-DB:16",
+      "val_speaker": "Emo-DB:03",
+      "seed": 51,
+      "n_train": 415,
+      "n_val": 49,
+      "n_test": 71
+    }
+  ],
+  "results": {
+    "w2v2_frozen_last": {
+      "macro_f1_pooled": 0.8018,
+      "ua_pooled": 0.799,
+      "macro_f1_fold_mean": 0.7541,
+      "macro_f1_fold_std": 0.1204,
+      "ua_fold_mean": 0.7805,
+      "ua_fold_std": 0.0817
+    },
+    "w2v2_frozen_best_layer": {
+      "macro_f1_pooled": 0.8785,
+      "ua_pooled": 0.8762,
+      "macro_f1_fold_mean": 0.8616,
+      "macro_f1_fold_std": 0.0534,
+      "ua_fold_mean": 0.8675,
+      "ua_fold_std": 0.0513
+    }
+  },
+  "torch": "2.11.0+cpu",
+  "transformers": "5.22.2"
+}

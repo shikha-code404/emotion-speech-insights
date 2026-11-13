@@ -1,0 +1,4 @@
+model,macro_f1_pooled,uar_pooled,macro_f1_speaker_mean,macro_f1_speaker_std,recall_anger,recall_disgust,recall_fear,recall_happiness,recall_neutral,recall_sadness,macro_f1_emodb,macro_f1_savee
+majority_baseline,0.0733,0.1196,0.0471,0.0119,0.3209,0.0000,0.0000,0.0000,0.3970,0.0000,0.0494,0.0417
+svm_rbf,0.5957,0.5876,0.6249,0.1896,0.7487,0.4811,0.4884,0.5267,0.7236,0.5574,0.7198,0.4496
+random_forest,0.5428,0.5380,0.5402,0.1986,0.6684,0.2264,0.4419,0.5649,0.7035,0.6230,0.6305,0.4032

@@ -1,0 +1,15 @@
+# Allowlist: only what the API needs at runtime goes into the image.
+*
+!deploy/install.sh
+!backend/app/*.py
+!backend/requirements-serve.txt
+!ml/src/__init__.py
+!ml/src/features.py
+!ml/src/preprocessing.py
+!ml/src/survey/__init__.py
+!ml/src/survey/scoring.py
+!ml/src/models/__init__.py
+!ml/src/models/wav2vec_head.py
+!ml/artifacts/ser-w2v2-v2/**
+!ml/artifacts/ser-baseline-v1/**
+!ml/artifacts/survey-v1/questions.json

@@ -1,0 +1,188 @@
+{
+  "experiment": "A",
+  "corpus": "Emo-DB",
+  "labels": [
+    "anger",
+    "boredom",
+    "disgust",
+    "fear",
+    "happiness",
+    "neutral",
+    "sadness"
+  ],
+  "created": "20261112-174527",
+  "command": "C:\\Users\\shikh\\OneDrive\\Desktop\\EDI_FINAL_PROJECT\\ml\\src\\compare_speech.py",
+  "device": "cpu",
+  "torch": "2.11.0+cpu",
+  "torchaudio": "2.11.0+cpu",
+  "sklearn": "1.9.1",
+  "preprocessing": "load_audio 16 kHz mono -> prepare_waveform(top_db=30.0)",
+  "log_mel": {
+    "n_mels": 80,
+    "n_fft": 400,
+    "hop": 160,
+    "f_min": 20.0,
+    "f_max": 8000.0,
+    "log": "ln(power + 1e-6)"
+  },
+  "cnn": {
+    "n_mels": 80,
+    "channels": [
+      16,
+      32,
+      64
+    ],
+    "dropout": 0.2,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 16,
+    "max_epochs": 60,
+    "patience": 10,
+    "aug_prob": 0.5,
+    "noise_snr_db": [
+      20.0,
+      35.0
+    ],
+    "gain_db": 3.0,
+    "max_shift_s": 0.1,
+    "seed": 42,
+    "extra": {}
+  },
+  "seed_rule": "fold seed = cnn.seed + fold index",
+  "splits": "leave-one-speaker-out (ml/src/splits.py); early-stopping speaker = validation_speaker(train speakers, fold index)",
+  "folds": [
+    {
+      "fold": 0,
+      "speaker": "Emo-DB:03",
+      "val_speaker": "Emo-DB:08",
+      "seed": 42,
+      "n_train": 428,
+      "n_val": 58,
+      "n_test": 49
+    },
+    {
+      "fold": 1,
+      "speaker": "Emo-DB:08",
+      "val_speaker": "Emo-DB:09",
+      "seed": 43,
+      "n_train": 434,
+      "n_val": 43,
+      "n_test": 58
+    },
+    {
+      "fold": 2,
+      "speaker": "Emo-DB:09",
+      "val_speaker": "Emo-DB:10",
+      "seed": 44,
+      "n_train": 454,
+      "n_val": 38,
+      "n_test": 43
+    },
+    {
+      "fold": 3,
+      "speaker": "Emo-DB:10",
+      "val_speaker": "Emo-DB:11",
+      "seed": 45,
+      "n_train": 442,
+      "n_val": 55,
+      "n_test": 38
+    },
+    {
+      "fold": 4,
+      "speaker": "Emo-DB:11",
+      "val_speaker": "Emo-DB:12",
+      "seed": 46,
+      "n_train": 445,
+      "n_val": 35,
+      "n_test": 55
+    },
+    {
+      "fold": 5,
+      "speaker": "Emo-DB:12",
+      "val_speaker": "Emo-DB:13",
+      "seed": 47,
+      "n_train": 439,
+      "n_val": 61,
+      "n_test": 35
+    },
+    {
+      "fold": 6,
+      "speaker": "Emo-DB:13",
+      "val_speaker": "Emo-DB:14",
+      "seed": 48,
+      "n_train": 405,
+      "n_val": 69,
+      "n_test": 61
+    },
+    {
+      "fold": 7,
+      "speaker": "Emo-DB:14",
+      "val_speaker": "Emo-DB:15",
+      "seed": 49,
+      "n_train": 410,
+      "n_val": 56,
+      "n_test": 69
+    },
+    {
+      "fold": 8,
+      "speaker": "Emo-DB:15",
+      "val_speaker": "Emo-DB:16",
+      "seed": 50,
+      "n_train": 408,
+      "n_val": 71,
+      "n_test": 56
+    },
+    {
+      "fold": 9,
+      "speaker": "Emo-DB:16",
+      "val_speaker": "Emo-DB:03",
+      "seed": 51,
+      "n_train": 415,
+      "n_val": 49,
+      "n_test": 71
+    }
+  ],
+  "results": {
+    "majority_baseline": {
+      "macro_f1_pooled": 0.0548,
+      "ua_pooled": 0.1429,
+      "macro_f1_fold_mean": 0.0569,
+      "macro_f1_fold_std": 0.0088,
+      "ua_fold_mean": 0.1452,
+      "ua_fold_std": 0.0075
+    },
+    "svm_rbf": {
+      "macro_f1_pooled": 0.6754,
+      "ua_pooled": 0.6735,
+      "macro_f1_fold_mean": 0.6619,
+      "macro_f1_fold_std": 0.094,
+      "ua_fold_mean": 0.6746,
+      "ua_fold_std": 0.1025
+    },
+    "random_forest": {
+      "macro_f1_pooled": 0.5835,
+      "ua_pooled": 0.5828,
+      "macro_f1_fold_mean": 0.5493,
+      "macro_f1_fold_std": 0.1565,
+      "ua_fold_mean": 0.5862,
+      "ua_fold_std": 0.1427
+    },
+    "cnn": {
+      "macro_f1_pooled": 0.599,
+      "ua_pooled": 0.6061,
+      "macro_f1_fold_mean": 0.5233,
+      "macro_f1_fold_std": 0.0822,
+      "ua_fold_mean": 0.568,
+      "ua_fold_std": 0.0714
+    }
+  },
+  "paired_vs_svm": {
+    "n_folds": 10,
+    "wins": 1,
+    "losses": 9,
+    "ties": 0,
+    "mean_diff": -0.13860327542840709,
+    "sd_diff": 0.12132591095394549,
+    "p": 0.005859375
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "synthetic_data": true,
+  "notice": "SYNTHETIC DATA: all 1,200 survey respondents are artificially generated; none are real people. Results reflect the data generator's rules, not real-world patterns, and are not real-world accuracy.",
+  "best_params_per_outer_fold": {
+    "majority_baseline": [
+      {
+        "clf__strategy": "most_frequent"
+      },
+      {
+        "clf__strategy": "most_frequent"
+      },
+      {
+        "clf__strategy": "most_frequent"
+      },
+      {
+        "clf__strategy": "most_frequent"
+      },
+      {
+        "clf__strategy": "most_frequent"
+      }
+    ],
+    "logistic_regression": [
+      {
+        "clf__C": 0.1
+      },
+      {
+        "clf__C": 0.1
+      },
+      {
+        "clf__C": 0.1
+      },
+      {
+        "clf__C": 0.1
+      },
+      {
+        "clf__C": 0.1
+      }
+    ],
+    "random_forest": [
+      {
+        "clf__max_depth": 8,
+        "clf__max_features": "sqrt",
+        "clf__min_samples_leaf": 5
+      },
+      {
+        "clf__max_depth": 16,
+        "clf__max_features": "sqrt",
+        "clf__min_samples_leaf": 1
+      },
+      {
+        "clf__max_depth": 8,
+        "clf__max_features": "sqrt",
+        "clf__min_samples_leaf": 5
+      },
+      {
+        "clf__max_depth": 16,
+        "clf__max_features": "sqrt",
+        "clf__min_samples_leaf": 1
+      },
+      {
+        "clf__max_depth": 8,
+        "clf__max_features": "sqrt",
+        "clf__min_samples_leaf": 1
+      }
+    ],
+    "gradient_boosting": [
+      {
+        "clf__learning_rate": 0.05,
+        "clf__max_depth": 3,
+        "clf__max_iter": 100
+      },
+      {
+        "clf__learning_rate": 0.05,
+        "clf__max_depth": 3,
+        "clf__max_iter": 100
+      },
+      {
+        "clf__learning_rate": 0.05,
+        "clf__max_depth": 3,
+        "clf__max_iter": 100
+      },
+      {
+        "clf__learning_rate": 0.05,
+        "clf__max_depth": 3,
+        "clf__max_iter": 100
+      },
+      {
+        "clf__learning_rate": 0.05,
+        "clf__max_depth": 3,
+        "clf__max_iter": 100
+      }
+    ]
+  }
+}

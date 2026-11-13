@@ -1,0 +1,8 @@
+,pred_anger,pred_boredom,pred_disgust,pred_fear,pred_happiness,pred_neutral,pred_sadness
+true_anger,103,0,3,7,13,1,0
+true_boredom,4,42,2,6,5,15,7
+true_disgust,4,1,16,7,12,2,4
+true_fear,8,0,4,44,4,6,3
+true_happiness,20,1,7,3,36,4,0
+true_neutral,0,21,3,10,2,42,1
+true_sadness,0,7,5,1,0,4,45

@@ -1,0 +1,9 @@
+fold,speaker,n,macro_f1,ua,params,model,val_speaker,best_epoch,epochs_run,val_macro_f1,seed,seconds
+0,test on Emo-DB,454,0.0494,0.1667,"{""clf__strategy"": ""most_frequent""}",majority_baseline,,,,,,
+1,test on SAVEE,420,0.0417,0.1667,"{""clf__strategy"": ""most_frequent""}",majority_baseline,,,,,,
+0,test on Emo-DB,454,0.0944,0.1827,"{""clf__C"": 3, ""clf__gamma"": 0.001}",svm_rbf,,,,,,
+1,test on SAVEE,420,0.0867,0.1833,"{""clf__C"": 10, ""clf__gamma"": 0.003}",svm_rbf,,,,,,
+0,test on Emo-DB,454,0.1119,0.1324,"{""clf__max_features"": ""sqrt"", ""clf__min_samples_leaf"": 3}",random_forest,,,,,,
+1,test on SAVEE,420,0.1441,0.2125,"{""clf__max_features"": 0.2, ""clf__min_samples_leaf"": 1}",random_forest,,,,,,
+0,test on Emo-DB,454,0.1576,0.1765,,cnn,SAVEE:DC,13.0000,23.0000,0.4719,42.0000,306.3000
+1,test on SAVEE,420,0.2360,0.2861,,cnn,Emo-DB:08,5.0000,15.0000,0.5115,43.0000,169.4000

@@ -1,0 +1,24 @@
+# env files
+.env
+.env.*
+!.env.example
+
+# installed packages and caches (rebuilt from requirements.txt / package.json)
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+frontend/dist/
+
+# raw datasets
+ml/data/raw/
+
+# large or data-derived ML files (models ship via the GitHub Release tarball)
+ml/artifacts/cache/
+ml/artifacts/release/
+ml/artifacts/ser-w2v2-v2/backbone/
+
+# test output
+frontend/test-results/
+frontend/playwright-report/

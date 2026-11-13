@@ -1,0 +1,154 @@
+{
+  "model_name": "survey-lifestyle-emotional-state",
+  "version": "survey-v1",
+  "status": "analysis-only",
+  "serving": {
+    "served_to_users": false,
+    "api_endpoint": null,
+    "statement": "ANALYSIS-ONLY: this lifestyle model is never served to users and has no API endpoint. It must not be used to make statements about any person."
+  },
+  "data": {
+    "source": "ml/data/raw/survey/survey_dataset_1200.xlsx, sheet Labeled_Dataset",
+    "synthetic": true,
+    "notice": "SYNTHETIC DATA: all 1,200 survey respondents are artificially generated; none are real people. Results reflect the data generator's rules, not real-world patterns, and are not real-world accuracy.",
+    "n_rows": 1200,
+    "class_balance": "300 per class (Normal, Depression, Anxiety, Stress); gender and age-group mix identical in every class by construction"
+  },
+  "metrics_disclaimer": "These metrics measure recovery of relationships the synthetic data generator simulated with assumed strengths. They are not real-world accuracy and must not be reported as such.",
+  "task": "Predict the dataset's Emotional_State label (derived from DASS-21 answers) from lifestyle answers only.",
+  "features": [
+    "bmi",
+    "systolic_bp",
+    "diastolic_bp",
+    "daily_steps",
+    "water_intake_l",
+    "age_group",
+    "sleep_duration",
+    "gender",
+    "smoking_status",
+    "alcohol_status",
+    "physical_activity_time",
+    "mindless_snacking",
+    "physical_discomfort",
+    "occupation"
+  ],
+  "feature_notes": {
+    "bmi": "weight_kg / (height_cm / 100)^2, computed by make_X before the pipeline",
+    "ordinal": [
+      "age_group",
+      "sleep_duration"
+    ],
+    "one_hot": [
+      "gender",
+      "smoking_status",
+      "alcohol_status",
+      "physical_activity_time",
+      "mindless_snacking",
+      "physical_discomfort",
+      "occupation"
+    ],
+    "prefer_not_to_say": "kept as its own category"
+  },
+  "excluded_columns": [
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "q5",
+    "q6",
+    "q7",
+    "q8",
+    "q9",
+    "q10",
+    "q11",
+    "q12",
+    "q13",
+    "q14",
+    "q15",
+    "q16",
+    "q17",
+    "q18",
+    "q19",
+    "q20",
+    "q21",
+    "stress_score",
+    "anxiety_score",
+    "severity_level",
+    "emotional_state",
+    "stress_severity",
+    "anxiety_severity",
+    "depression_score",
+    "depression_severity"
+  ],
+  "exclusion_reason": "Emotional_State is computed from q1..q21; items, scores and severities would leak the label.",
+  "estimator": "logistic_regression",
+  "estimator_params": {
+    "clf__C": 1.0
+  },
+  "evaluation": {
+    "protocol": "outer stratified 5-fold CV (one row per respondent); inner stratified 3-fold grid search on macro-F1; preprocessing fit inside training folds only",
+    "macro_f1": {
+      "mean": 0.5807,
+      "std": 0.0253
+    },
+    "balanced_accuracy": {
+      "mean": 0.5833,
+      "std": 0.0236
+    },
+    "per_class_recall": {
+      "Normal": 0.6867,
+      "Depression": 0.5433,
+      "Anxiety": 0.4933,
+      "Stress": 0.61
+    },
+    "all_models": {
+      "majority_baseline": {
+        "macro_f1": 0.1,
+        "balanced_accuracy": 0.25
+      },
+      "logistic_regression": {
+        "macro_f1": 0.5807,
+        "balanced_accuracy": 0.5833
+      },
+      "random_forest": {
+        "macro_f1": 0.5717,
+        "balanced_accuracy": 0.575
+      },
+      "gradient_boosting": {
+        "macro_f1": 0.5806,
+        "balanced_accuracy": 0.5833
+      }
+    },
+    "top_permutation_importance": [
+      {
+        "feature": "mindless_snacking",
+        "mean_drop_macro_f1": 0.1053
+      },
+      {
+        "feature": "daily_steps",
+        "mean_drop_macro_f1": 0.0735
+      },
+      {
+        "feature": "systolic_bp",
+        "mean_drop_macro_f1": 0.0493
+      },
+      {
+        "feature": "diastolic_bp",
+        "mean_drop_macro_f1": 0.0415
+      },
+      {
+        "feature": "age_group",
+        "mean_drop_macro_f1": 0.0347
+      }
+    ]
+  },
+  "limitations": [
+    "Data are fully synthetic; relationships and their strengths are the generator author's assumptions.",
+    "mindless_snacking options 'Due to Stress' and 'Due to Anxity' name the target classes; any signal there is self-description, not an independent lifestyle effect.",
+    "Gender and age-group mixes are identical in every class by design, so neither predicts the class on its own; age group can still matter in combination with other features (e.g. under-18 rows are set to non-smoker / non-drinker), which is what its permutation importance reflects.",
+    "Not validated on any real population."
+  ],
+  "ethics": "No output of this model is a diagnosis, screening result or statement about a person. DASS-21 screening results for users come only from scoring.py applied to their own answers.",
+  "sklearn_version": "1.9.1",
+  "random_seed": 42
+}

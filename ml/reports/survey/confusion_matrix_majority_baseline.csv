@@ -1,0 +1,6 @@
+# SYNTHETIC DATA: all 1,200 survey respondents are artificially generated; none are real people. Results reflect the data generator's rules, not real-world patterns, and are not real-world accuracy.
+,pred_Normal,pred_Depression,pred_Anxiety,pred_Stress
+true_Normal,0,0,300,0
+true_Depression,0,0,300,0
+true_Anxiety,0,0,300,0
+true_Stress,0,0,300,0
