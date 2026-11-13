@@ -85,7 +85,7 @@ class SurveyQuestionsResponse(BaseModel):
 
 class SurveyScoreRequest(BaseModel):
     """Request body for POST /api/survey/score. Answers are not stored."""
-    consent: bool
+    consent: bool = False  # missing counts as not given -> consent_required, same as /api/analyze
     answers: Dict[str, int] = Field(..., description='{"q1": 0..3, ..., "q21": 0..3}')
 
 

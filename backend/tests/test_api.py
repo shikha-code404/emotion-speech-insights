@@ -125,6 +125,22 @@ def test_score_all_zero_is_normal_without_message(client):
 
 
 @needs_survey
+def test_score_known_answer_case(client):
+    # Hand-computed: Depression (q3,5,10,13,16,17,21) = 1+0+2+1+0+1+0 = 5 -> 10 Mild;
+    # Anxiety (q2,4,7,9,15,19,20) = 0+1+0+0+1+0+0 = 2 -> 4 Normal;
+    # Stress (q1,6,8,11,12,14,18) = 3+2+2+3+2+2+2 = 16 -> 32 Severe. Dominant: Stress, no tie.
+    values = {1: 3, 2: 0, 3: 1, 4: 1, 5: 0, 6: 2, 7: 0, 8: 2, 9: 0, 10: 2, 11: 3,
+              12: 2, 13: 1, 14: 2, 15: 1, 16: 0, 17: 1, 18: 2, 19: 0, 20: 0, 21: 0}
+    body = client.post("/api/survey/score",
+                       json={"consent": True, "answers": {f"q{k}": v for k, v in values.items()}}).json()
+    rows = {s["subscale"]: (s["score"], s["band"]) for s in body["subscales"]}
+    assert rows == {"Depression": (10, "Mild"), "Anxiety": (4, "Normal"), "Stress": (32, "Severe")}
+    # tied_states lists the subscales in the top non-Normal band; one entry means no tie.
+    assert body["dominant_state"] == "Stress" and body["tied_states"] == ["Stress"]
+    assert body["supportive_message"]
+
+
+@needs_survey
 def test_score_tie_is_reported(client):
     # Depression 7*1*2=14 (Moderate), Anxiety 5*... -> use 1s on 5 anxiety items: 10 (Moderate)
     answers = _answers(dep=1)
@@ -143,10 +159,12 @@ def test_score_tie_is_reported(client):
     ({"consent": False, "answers": _answers()}, "consent_required"),
     ({"consent": True, "answers": {"q1": 1}}, "invalid_answers"),
     ({"consent": True, "answers": {**_answers(), "q5": 4}}, "invalid_answers"),
-    ({"answers": _answers()}, "invalid_request"),
+    ({"answers": _answers()}, "consent_required"),
+    ({"consent": True}, "invalid_request"),
 ])
 def test_score_errors(client, payload, code):
-    assert client.post("/api/survey/score", json=payload).json()["error_code"] == code
+    r = client.post("/api/survey/score", json=payload)
+    assert (r.status_code, r.json()["error_code"]) == ({"consent_required": 400}.get(code, 422), code)
 
 
 # ---------------------------------------------------------------------------

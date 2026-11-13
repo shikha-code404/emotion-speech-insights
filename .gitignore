@@ -22,3 +22,6 @@ ml/artifacts/ser-w2v2-v2/backbone/
 # test output
 frontend/test-results/
 frontend/playwright-report/
+
+# TypeScript build cache
+*.tsbuildinfo

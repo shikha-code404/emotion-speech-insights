@@ -31,8 +31,9 @@ Project rules (speaker-disjoint evaluation, no leakage, one copy of preprocessin
 frontend/          website: src/pages, src/components, src/services/api.ts, e2e/ (Playwright)
 backend/           API: app/ (routes, inference, survey scoring), tests/, requirements*.txt
 ml/                src/ (preprocessing, features, models, training, evaluation), tests/,
-                   data/raw/ (datasets, git-ignored), artifacts/ (trained models, git-ignored),
-                   reports/ (metrics, plots, model_selection.md; git-ignored), configs/ (run configs)
+                   data/raw/ (datasets, git-ignored), artifacts/ (trained models; the Wav2Vec backbone,
+                   caches and release tarball are git-ignored), reports/ (metrics, plots,
+                   model_selection.md), configs/ (run configs)
 deploy/            install.sh (shared by Docker builds), package_artifacts.py, huggingface/ (Space files)
 Dockerfile         API image for any Docker host
 start.ps1          starts API + website locally in two windows (Windows)
